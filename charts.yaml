@@ -4,6 +4,7 @@ discourse:
   namespace: discourse
   chart: ./charts/discourse
   values:
-    - values/discourse/values.yaml.gotmpl
-    - values/discourse/postgres.yaml.gotmpl
-    - values/discourse/redis.yaml.gotmpl
+    - charts/discourse/values/base.yaml.gotmpl
+    - charts/discourse/values/postgres.yaml.gotmpl
+    - charts/discourse/values/redis.yaml.gotmpl
+    - charts/discourse/values/ingress.yaml.gotmpl

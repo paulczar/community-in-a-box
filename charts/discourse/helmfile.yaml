@@ -1,0 +1,14 @@
+helmDefaults:
+  recreatePods: false
+  tillerless: true
+
+releases:
+  - name: discourse
+    namespace: discourse
+    chart: .
+    values:
+      - ./values/base.yaml.gotmpl
+      - ./values/ingress.yaml.gotmpl
+      - ./values/postgres.yaml.gotmpl
+      - ./values/redis.yaml.gotmpl
+    secrets: []
