@@ -53,6 +53,14 @@ A script that can be sourced into your shell to load up environment variables to
 
 `envs/default` is an environment that does not override any settings. However it does list all of the variables you might want to set to customize your install.
 
+To install or upgrade this environment you would run:
+
+```bash
+. ./envs/default/envs.sh
+./scripts/check-namespaces.sh -c -d
+helmfile apply
+```
+
 #### coming soon
 
 more example envs coming soon.
