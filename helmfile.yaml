@@ -1,0 +1,46 @@
+helmDefaults:
+  timeout: 600
+  recreatePods: false
+  tillerless: true
+
+environments:
+  default:
+    values:
+    - charts.yaml
+{{- if env "ENV_DIR" }}
+    - {{ env "ENV_DIR" }}/charts.yaml.gotmpl
+{{- end }}
+repositories:
+{{- range .Values }}
+{{- if and (.enabled) (hasKey . "repository") }}
+  - name: {{ .repository.name }}
+    url: {{ .repository.url }}
+{{- end }}
+{{- end }}
+
+releases:
+{{- range .Values }}
+{{- if .enabled }}
+{{- if hasKey . "raw" }}
+  - name: {{ .name }}-raw
+    namespace: {{ .namespace }}
+    chart: ./charts/mystique
+    values:
+    {{- range .raw }}
+      - {{ . }}
+    {{- end }}
+{{- end }}
+  - name: {{ .name }}
+    namespace: {{ .namespace }}
+    chart: {{ .chart }}
+    version: "{{ . | getOrNil "version" }}"
+    values:
+    {{- range .values }}
+      - {{ . }}
+    {{- end }}
+    secrets:
+    {{- range . | getOrNil "secrets" }}
+      - {{ . }}
+    {{- end }}
+  {{- end }}
+{{- end }}

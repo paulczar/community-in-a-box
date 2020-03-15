@@ -1,0 +1,21 @@
+#!/bin/bash
+
+
+export ENV_NAME=default
+export ENV_PATH="./envs/default"
+
+## Discourse Vars
+export DISCOURSE_ADMIN_USERNAME=
+export DISCOURSE_ADMIN_PASSWORD=
+export DISCOURSE_ADMIN_EMAIL=
+export DISCOURSE_HOSTNAME=
+export DISCOURSE_SITENAME=
+## Setting DISCOURSE_REDIS_HOST will disable built in redis server
+export DISCOURSE_REDIS_HOST=
+export DISCOURSE_REDIS_PASSWORD=
+## Setting DISCOURSE_POSTGRES_HOST will disable built in redis server
+export DISCOURSE_POSTGRES_HOST=
+export DISCOURSE_POSTGRES_ADMIN_PASSWORD=
+export DISCOURSE_POSTGRES_USERNAME=
+export DISCOURSE_POSTGRES_PASSWORD=
+export DISCOURSE_POSTGRES_DATABASE=

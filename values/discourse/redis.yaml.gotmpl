@@ -1,0 +1,25 @@
+redis:
+{{- if env "DISCOURSE_REDIS_HOST" }}
+  enabled: false
+  host: {{ env "DISCOURSE_REDIS_HOST" }}
+{{- else }}
+  enabled: true
+{{- end }}
+{{- if env "DISCOURSE_REDIS_PASSWORD" }}
+  usePassword: true
+  password: {{ env "DISCOURSE_REDIS_PASSWORD" }}
+{{- else }}
+  usePassword: false
+{{- end }}
+
+## Sorry for the master/slave terminology,
+## its an upstream chart. Will look for
+## ways to change it.
+  cluster:
+    enabled: false
+  master:
+    persistence:
+      enabled: false
+  slave:
+    persistence:
+      enabled: false

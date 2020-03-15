@@ -1,0 +1,9 @@
+discourse:
+  name: discourse
+  enabled: true
+  namespace: discourse
+  chart: ./charts/discourse
+  values:
+    - values/discourse/values.yaml.gotmpl
+    - values/discourse/postgres.yaml.gotmpl
+    - values/discourse/redis.yaml.gotmpl
