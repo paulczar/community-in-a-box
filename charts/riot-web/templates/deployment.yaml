@@ -1,51 +1,53 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "discourse.fullname" . }}
+  name: {{ include "riot-web.fullname" . }}
   labels:
-    {{- include "discourse.labels" . | nindent 4 }}
-    component: discourse
+    {{- include "riot-web.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "discourse.selectorLabels" . | nindent 6 }}
-      component: discourse
+      {{- include "riot-web.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/configmap-envs.yaml") . | sha256sum }}
-        checksum/secret: {{ include (print $.Template.BasePath "/secret-envs.yaml") . | sha256sum }}
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
       labels:
-        {{- include "discourse.selectorLabels" . | nindent 8 }}
-        component: discourse
+        {{- include "riot-web.selectorLabels" . | nindent 8 }}
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-      serviceAccountName: {{ include "discourse.serviceAccountName" . }}
+      serviceAccountName: {{ include "riot-web.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes:
+      - name: config
+        configMap:
+          name: {{ include "riot-web.fullname" . }}
+          items:
+            - key: config.json
+              path: config.json
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default "latest" }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          envFrom:
-            - configMapRef:
-                name: {{ include "discourse.fullname" . }}-envs
-            - secretRef:
-                name: {{ include "discourse.fullname" . }}-envs
+          volumeMounts:
+            - name: config
+              mountPath: /config/config.json
+              subPath: config.json
           ports:
             - name: http
-              containerPort: 3000
+              containerPort: 80
               protocol: TCP
-          # livenessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: http
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
           readinessProbe:
             httpGet:
               path: /

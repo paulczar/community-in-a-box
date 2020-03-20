@@ -7,6 +7,7 @@ metadata:
 data:
   DISCOURSE_HOSTNAME: {{ .Values.hostname }}
   DISCOURSE_USERNAME: {{ .Values.admin.username }}
+  DISCOURSE_FORCE_HTTPS: "{{ ge (len .Values.ingress.tls) 0 }}"
   DISCOURSE_EMAIL: {{ .Values.admin.email }}
   DISCOURSE_SITENAME: {{ .Values.sitename }}
   POSTGRESQL_HOST: {{ include "discourse.fullname" . }}-postgresql

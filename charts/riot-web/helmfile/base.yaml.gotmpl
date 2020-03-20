@@ -1,0 +1,54 @@
+# Default values for riot-web.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+config:
+  default_server_config:
+   m.homeserver:
+     base_url: "https://matrix.ciab.demo.paulczar.wtf"
+     server_name: "community-in-a-box"
+   m.identity_server:
+     base_url: "https://vector.im"
+  default_server_name: "community-in-a-box"
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: 'nginx'
+    ingress.kubernetes.io/ssl-redirect: 'true'
+    cert-manager.io/cluster-issuer: 'letsencrypt-prod'
+    cert-manager.io/acme-challenge-type: 'dns01'
+    cert-manager.io/acme-dns01-provider: 'prod-clouddns'
+    kubernetes.io/tls-acme: 'true'
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "64k"
+  hosts:
+    - host: riot-web.ciab.demo.paulczar.wtf
+      paths: ["/"]
+  tls:
+   - secretName: riot-web-ciab-demo-paulczar-wtf-tls
+     hosts:
+       - riot-web.ciab.demo.paulczar.wtf
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

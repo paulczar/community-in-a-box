@@ -10,4 +10,4 @@ postgresql:
   postgresqlPassword: {{ env "DISCOURSE_POSTGRES_PASSWORD" | default "this-is-a-bad-password" }}
   postgresqlDatabase: {{ env "DISCOURSE_POSTGRES_DATABASE" | default "discourse" }}
   persistence:
-    enabled: false
+    enabled: true

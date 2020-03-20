@@ -7,8 +7,8 @@ releases:
     namespace: discourse
     chart: .
     values:
-      - ./values/base.yaml.gotmpl
-      - ./values/ingress.yaml.gotmpl
-      - ./values/postgres.yaml.gotmpl
-      - ./values/redis.yaml.gotmpl
+      - ./helmfile/base.yaml.gotmpl
+      - ./helmfile/ingress.yaml.gotmpl
+      - ./helmfile/postgres.yaml.gotmpl
+      - ./helmfile/redis.yaml.gotmpl
     secrets: []

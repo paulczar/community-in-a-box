@@ -1,0 +1,13 @@
+{{- if not .Values.existingConfigMap -}}
+{{ $defaultConfig := .Files.Get "files/homeserver.yaml" | fromYaml }}
+{{ $config := mergeOverwrite $defaultConfig .Values.config }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "synapse.fullname" . }}
+  labels:
+    {{- include "synapse.labels" . | nindent 4 }}
+data:
+  homeserver.yaml: |-
+{{- $config | toYaml | nindent 4 }}
+{{- end -}}

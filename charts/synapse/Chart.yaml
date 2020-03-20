@@ -1,0 +1,19 @@
+apiVersion: v2
+name: synapse
+description: A Helm chart intalling Matrix Synapse
+type: application
+version: 0.1.0
+appVersion: 1.11.1
+
+home: https://github.com/matrix-org/synapse
+sources:
+- https://github.com/matrix-org/synapse
+maintainers:
+- name: paulczar
+  email: username.taken@gmail.com
+
+dependencies:
+  - name: postgresql
+    repository: https://charts.bitnami.com/bitnami
+    version: 8.6.4
+    condition: postgresql.enabled
