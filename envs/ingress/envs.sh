@@ -4,12 +4,12 @@
 export ENV_NAME=ingress-demo
 export ENV_DIR="./envs/ingress"
 
-export DOMAIN=ciab.demo.paulczar.wtf
+export DOMAIN=ciab.example.com
 
 ## Discourse Vars
 export DISCOURSE_ADMIN_USERNAME=admin
-export DISCOURSE_ADMIN_PASSWORD=grghersfegr
-export DISCOURSE_ADMIN_EMAIL=username.taken@gmail.com
+export DISCOURSE_ADMIN_PASSWORD=this-is-a-bad-password
+export DISCOURSE_ADMIN_EMAIL=email@example.com
 export DISCOURSE_HOSTNAME=discourse.${DOMAIN}
 export DISCOURSE_SITENAME=ciab
 ## Setting DISCOURSE_REDIS_HOST will disable built in redis server

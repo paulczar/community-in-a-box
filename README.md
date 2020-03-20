@@ -7,7 +7,7 @@ A [in]Complete Community Management platform !
 ## Includes
 
 * [Discourse](./charts/discourse/README.md)
-
+* [RocketChat](./charts/rocketchat/README.md)
 ## Todo
 
 1. Chat application - riot.im or rocketchat
